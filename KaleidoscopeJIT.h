@@ -52,6 +52,18 @@ public:
         CompileLayer(*this->ES, ObjectLayer,
                      std::make_unique<ConcurrentIRCompiler>(std::move(JTMB))),
         MainJD(this->ES->createBareJITDylib("<main>")) {
+#ifdef _WIN32 
+    Error err=MainJD.define(absoluteSymbols(SymbolMap({{ Mangle("free"),
+                                                         { ExecutorAddr::fromPtr(&free),
+                                                           JITSymbolFlags::Callable }},
+                                                       { Mangle("malloc"),
+                                                         { ExecutorAddr::fromPtr(&malloc),
+                                                           JITSymbolFlags::Callable }}})));
+    if(err)
+    {
+        errs() << err;
+    }
+#endif
     MainJD.addGenerator(
         cantFail(DynamicLibrarySearchGenerator::GetForCurrentProcess(
             DL.getGlobalPrefix())));

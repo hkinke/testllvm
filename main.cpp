@@ -60,16 +60,16 @@ int main(int argc,const char * argv[])
     
     std::vector<Type *> malloc_arg_types(1,int64_type);
     
-    FunctionType * malloc_type=FunctionType::get(void_ptr_type,malloc_arg_types,false);
+    FunctionType * malloc_fun_type=FunctionType::get(void_ptr_type,malloc_arg_types,false);
     
-    Function * malloc_declare=Function::Create(malloc_type,Function::ExternalLinkage,"malloc",TheModule.get());
+    Function * malloc_declare=Function::Create(malloc_fun_type,Function::ExternalLinkage,"malloc",TheModule.get());
     
     std::vector<Type *> myalloc_arg_types(1,int64_type);
     std::vector<std::string> myalloc_arg_name={"size"};
     
-    FunctionType * myalloc_type=FunctionType::get(void_ptr_type,myalloc_arg_types,false);
+    FunctionType * myalloc_fun_type=FunctionType::get(void_ptr_type,myalloc_arg_types,false);
     
-    Function * myalloc_define=Function::Create(myalloc_type,Function::ExternalLinkage,"myalloc",TheModule.get());
+    Function * myalloc_define=Function::Create(myalloc_fun_type,Function::ExternalLinkage,"myalloc",TheModule.get());
     
     int i=0;
     for(auto & arg:myalloc_define->args())

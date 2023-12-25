@@ -44,3 +44,5 @@ Exit gdb
 (gdb) quit
 ```
 
+The file `KaleidoscopeJIT.h` has been modified to support `malloc` and `free` of `LLVM` linked against `ucrtbase.dll`. To test old behavior, please download the original file [KaleidoscopeJIT.h](https://raw.githubusercontent.com/llvm/llvm-project/main/llvm/examples/Kaleidoscope/include/KaleidoscopeJIT.h) or use the previous commit.
+
